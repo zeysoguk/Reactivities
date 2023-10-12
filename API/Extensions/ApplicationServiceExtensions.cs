@@ -31,6 +31,7 @@ namespace API.Extensions
                 });
             });
 
+            services.AddHttpContextAccessor();
             services.AddMediatR(typeof(List.Handler));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddScoped<IUserAccessor, UserAccessor>();
