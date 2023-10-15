@@ -39,12 +39,6 @@ export default class UserStore {
         }
     }
 
-    logout = () => {
-        store.commonStore.setToken(null);
-        this.user = null;
-        router.navigate('/');
-    }
-
     getUser = async () => {
         try {
             const user = await agent.Account.current();
@@ -53,4 +47,15 @@ export default class UserStore {
             console.log(error);
         }
     }
+
+    logout = () => {
+        store.commonStore.setToken(null);
+        this.user = null;
+        router.navigate('/');
+    }
+
+    setImage = (image: string) => {
+        if (this.user) this.user.image = image;
+    }
+
 }
