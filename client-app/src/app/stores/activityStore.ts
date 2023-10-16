@@ -1,8 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { Activity, ActivityFormValues } from '../models/activity';
 import agent from '../api/agent';
-import { v4 as uuid } from 'uuid';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 import { store } from './store';
 import { Profile } from '../models/profile';
 
@@ -91,7 +90,7 @@ export default class ActivityStore {
 
   createActivity = async (activity: ActivityFormValues) => {
     const user = store.userStore.user;
-    const attendee = new Profile(user!); 
+    const attendee = new Profile(user!);
     try {
       await agent.Activities.create(activity);
       const newActivity = new Activity(activity);
@@ -111,7 +110,7 @@ export default class ActivityStore {
       await agent.Activities.update(activity);
       runInAction(() => {
         if (activity.id) {
-          let updatedActivity = {...this.getActivity(activity.id), ...activity}
+          let updatedActivity = { ...this.getActivity(activity.id), ...activity }
           this.activityRegistry.set(activity.id, updatedActivity as Activity);
           this.selectedActivity = updatedActivity as Activity;
         }
@@ -147,15 +146,15 @@ export default class ActivityStore {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
         if (this.selectedActivity?.isGoing) {
-          this.selectedActivity.attendees = 
+          this.selectedActivity.attendees =
             this.selectedActivity.attendees?.filter(a => a.username !== user?.username);
-            this.selectedActivity.isGoing = false;
-          } else {
-            const attendee = new Profile(user!);
-            this.selectedActivity?.attendees?.push(attendee);
-            this.selectedActivity!.isGoing = true;
-          }
-          this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!)
+          this.selectedActivity.isGoing = false;
+        } else {
+          const attendee = new Profile(user!);
+          this.selectedActivity?.attendees?.push(attendee);
+          this.selectedActivity!.isGoing = true;
+        }
+        this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!)
       })
     } catch (error) {
       console.log(error);
@@ -177,5 +176,9 @@ export default class ActivityStore {
     } finally {
       runInAction(() => this.loading = false);
     }
+  }
+
+  clearSelectedActivity = () => {
+    this.selectedActivity = undefined;
   }
 }
