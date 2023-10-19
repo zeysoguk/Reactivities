@@ -9,13 +9,13 @@ interface Props {
     profile: Profile;
 }
 
-function truncate(str:string | undefined) {
-    if(str) {
-        return str.length > 40 ? str.substring(0, 37) + '...' : str;
+export default observer(function ProfileCard({ profile }: Props) {
+    function truncate(str: string | undefined) {
+        if (str) {
+            return str.length > 40 ? str.substring(0, 37) + '...' : str;
+        }
     }
-}
 
-export default observer(function ProfileCard({profile}: Props) {
     return (
         <Card as={Link} to={`/profiles/${profile.username}`}>
             <Image src={profile.image || '/assets/user.png'} />
