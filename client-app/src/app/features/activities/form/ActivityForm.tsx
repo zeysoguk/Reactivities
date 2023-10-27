@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Header , Segment } from 'semantic-ui-react';
+import { Button, Header, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../stores/store';
 import { observer } from 'mobx-react-lite';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -21,39 +21,50 @@ export default observer(function ActivityForm() {
     createActivity,
     updateActivity,
     loadActivity,
-    loadingInitial
+    loadingInitial,
   } = activityStore;
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues(),
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required('The activity title is required'),
     description: Yup.string().required('The activity description is required'),
     category: Yup.string().required(),
-    date: Yup.string().required('Date is required').nullable(),
+    date: Yup.string()
+      .required('Date is required')
+      .nullable(),
     city: Yup.string().required(),
     venue: Yup.string().required(),
-  })
+  });
 
   useEffect(() => {
-    if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)))
+    if (id)
+      loadActivity(id).then(activity =>
+        setActivity(new ActivityFormValues(activity)),
+      );
   }, [id, loadActivity]);
 
   function handleFormSubmit(activity: ActivityFormValues) {
-    if (!activity.id){
+    if (!activity.id) {
       let newActivity = {
         ...activity,
-        id: uuid()
+        id: uuid(),
       };
-      createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
+      createActivity(newActivity).then(() =>
+        navigate(`/activities/${newActivity.id}`),
+      );
     } else {
-      updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
+      updateActivity(activity).then(() =>
+        navigate(`/activities/${activity.id}`),
+      );
     }
   }
 
-  if (loadingInitial) return <LoadingComponent content='Loading activity...' />
+  if (loadingInitial) return <LoadingComponent content='Loading activity...' />;
 
   return (
     <Segment clearing>
@@ -62,12 +73,17 @@ export default observer(function ActivityForm() {
         validationSchema={validationSchema}
         enableReinitialize
         initialValues={activity}
-        onSubmit={values => handleFormSubmit(values)}>
+        onSubmit={values => handleFormSubmit(values)}
+      >
         {({ handleSubmit, isValid, isSubmitting, dirty }) => (
           <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
             <MyTextInput name='title' placeholder='Title' />
             <MyTextArea rows={3} placeholder='Description' name='description' />
-            <MySelectInput options={categoryOptions} placeholder='Category' name='category' />
+            <MySelectInput
+              options={categoryOptions}
+              placeholder='Category'
+              name='category'
+            />
             <MyDateInput
               placeholderText='Date'
               name='date'
@@ -86,7 +102,8 @@ export default observer(function ActivityForm() {
               content='Submit'
             />
             <Button
-              as={Link} to='/activities'
+              as={Link}
+              to='/activities'
               floated='right'
               type='button'
               content='Cancel'
