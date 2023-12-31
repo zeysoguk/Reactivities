@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../stores/store';
 import { observer } from 'mobx-react-lite';
@@ -17,7 +17,6 @@ import MyDateInput from './MyDateInput';
 export default observer(function ActivityForm() {
   const { activityStore } = useStore();
   const {
-    selectedActivity,
     createActivity,
     updateActivity,
     loadActivity,
@@ -50,7 +49,7 @@ export default observer(function ActivityForm() {
 
   function handleFormSubmit(activity: ActivityFormValues) {
     if (!activity.id) {
-      let newActivity = {
+      const newActivity = {
         ...activity,
         id: uuid(),
       };

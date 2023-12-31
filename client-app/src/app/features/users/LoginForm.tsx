@@ -9,7 +9,7 @@ export default observer(function LoginForm() {
     return (
         <Formik
             initialValues={{ email: '', password: '', error: null }}
-            onSubmit={(values, { setErrors }) => userStore.login(values).catch(error =>
+            onSubmit={(values, { setErrors }) => userStore.login(values).catch(() =>
                 setErrors({ error: 'Invalid email or password' }))}
         >
             {({ handleSubmit, isSubmitting, errors }) => (
@@ -18,8 +18,8 @@ export default observer(function LoginForm() {
                     <MyTextInput placeholder='Email' name='email' />
                     <MyTextInput placeholder='Password' name='password' type='password' />
                     <ErrorMessage
-                        name='error' render={() => 
-                        <Label style={{ marginBottom: 10 }} basic color='red' content={errors.error} />}
+                        name='error' render={() =>
+                            <Label style={{ marginBottom: 10 }} basic color='red' content={errors.error} />}
                     />
                     <Button loading={isSubmitting} positive content='Login' type='submit' fluid />
                 </Form>

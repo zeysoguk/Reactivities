@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Header, Icon } from 'semantic-ui-react';
 
@@ -20,7 +20,7 @@ export default function PhotoWidgetDropzone({ setFiles }: Props) {
         borderColor: 'green'
     }
 
-    const onDrop = useCallback((acceptedFiles : any) => {
+    const onDrop = useCallback((acceptedFiles: any) => {
         setFiles(acceptedFiles.map((file: any) => Object.assign(file, {
             preview: URL.createObjectURL(file)
         })));
@@ -28,7 +28,7 @@ export default function PhotoWidgetDropzone({ setFiles }: Props) {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     return (
-        <div {...getRootProps()} style={isDragActive ? {...dzStyles, ...dzActive} : dzStyles}>
+        <div {...getRootProps()} style={isDragActive ? { ...dzStyles, ...dzActive } : dzStyles}>
             <input {...getInputProps()} />
             <Icon name='upload' size='huge' />
             <Header content='Drop image here' />

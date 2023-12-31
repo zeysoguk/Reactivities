@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
 import ActivityList from './ActivityList';
 import { useStore } from '../../../stores/store';
@@ -32,8 +32,8 @@ export default observer(function ActivityDashboard() {
     <Grid>
       <Grid.Column width='10'>
         {activityStore.loadingInitial &&
-        activityRegistry.size === 0 &&
-        !loadingNext ? (
+          activityRegistry.size === 0 &&
+          !loadingNext ? (
           <>
             <ActivityListItemPlaceholder />
             <ActivityListItemPlaceholder />

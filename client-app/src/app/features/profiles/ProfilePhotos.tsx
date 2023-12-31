@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import React, { useState, SyntheticEvent } from 'react';
-import { Button, Card, Grid, Header, Image, Tab } from 'semantic-ui-react';
+import { useState, SyntheticEvent } from 'react';
+import { Button, Card, Grid, Header, Image, TabPane } from 'semantic-ui-react';
 import { Photo, Profile } from '../../models/profile';
 import { useStore } from '../../stores/store';
 import PhotoUploadWidget from '../../common/imageUpload/photoUploadWidget';
@@ -30,7 +30,7 @@ export default observer(function ProfilePhotos({ profile }: Props) {
     }
 
     return (
-        <Tab.Pane>
+        <TabPane>
             <Grid>
                 <Grid.Column width={16}>
                     <Header floated='left' icon='image' content='Photos' />
@@ -63,7 +63,7 @@ export default observer(function ProfilePhotos({ profile }: Props) {
                                             <Button
                                                 basic
                                                 color='red'
-                                                icon='trash' 
+                                                icon='trash'
                                                 loading={target === photo.id && loading}
                                                 onClick={e => handleDeletePhoto(photo, e)}
                                                 disabled={photo.isMain}
@@ -77,6 +77,6 @@ export default observer(function ProfilePhotos({ profile }: Props) {
                     )}
                 </Grid.Column>
             </Grid>
-        </Tab.Pane>
+        </TabPane>
     )
 })

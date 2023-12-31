@@ -23,6 +23,7 @@ export default class UserStore {
             router.navigate('/activities');
             store.modalStore.closeModal();
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }
@@ -35,6 +36,7 @@ export default class UserStore {
             router.navigate('/activities');
             store.modalStore.closeModal();
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }
@@ -56,7 +58,7 @@ export default class UserStore {
 
     setDisplayName = (name: string) => {
         if (this.user) this.user.displayName = name;
-       }
+    }
 
     setImage = (image: string) => {
         if (this.user) this.user.image = image;
