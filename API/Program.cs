@@ -60,5 +60,3 @@ catch (Exception ex)
 }
 
 app.Run();
-
-// Komut başarısız olursa catch exception ile yakalayacağız.
