@@ -1,8 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /app
+EXPOSE 8080
 
 # copy .csproj and restore as distinct layers
-COPY "Reactivities.sln" "Reactivities.sln" 
+COPY "Reactivities.sln" "Reactivities.sln"
 COPY "API/API.csproj" "API/API.csproj"
 COPY "Application/Application.csproj" "Application/Application.csproj"
 COPY "Persistence/Persistence.csproj" "Persistence/Persistence.csproj"
@@ -11,8 +12,8 @@ COPY "Infrastructure/Infrastructure.csproj" "Infrastructure/Infrastructure.cspro
 
 RUN dotnet restore "Reactivities.sln"
 
-# copy everything else build
-COPY . . 
+# copy everything else and build
+COPY . .
 WORKDIR /app
 RUN dotnet publish -c Release -o out
 
