@@ -18,7 +18,7 @@ export default observer(function HomePage() {
             alt='logo'
             style={{ marginBottom: 12 }}
           />
-          Reactivities V2
+          Reactivities
         </Header>
         {userStore.isLoggedIn ? (
           <>
