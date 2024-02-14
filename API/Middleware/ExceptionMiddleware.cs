@@ -34,7 +34,6 @@ namespace API.Middleware
 
                 var response = new AppException(context.Response.StatusCode, _env.EnvironmentName + " - " + ex.Message, ex.StackTrace?.ToString());
 
-
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
                 var json = JsonSerializer.Serialize(response, options);
