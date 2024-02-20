@@ -71,6 +71,7 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
           )}
         </Formik>
 
+<<<<<<< HEAD
         <Comment.Group>
           {commentStore.comments.map(comment => (
             <Comment key={comment.id}>
@@ -93,3 +94,27 @@ export default observer(function ActivityDetailedChat({ activityId }: Props) {
     </>
   );
 });
+=======
+                <Comment.Group>
+                    {commentStore.comments.map(comment => (
+                        <Comment key={comment.id}>
+                            <Comment.Avatar src={comment.image || '/assets/user.png'} />
+                            <Comment.Content>
+                                <Comment.Author as={Link} to={`/profiles/${comment.username}`}>
+                                    {comment.displayName}
+                                </Comment.Author>
+                                <Comment.Metadata>
+                                    <div>
+                                        {formatDistanceToNow(comment.createdAt)} ago
+                                    </div>
+                                </Comment.Metadata>
+                                <Comment.Text style={{ whiteSpace: 'pre-wrap' }}>{comment.body}</Comment.Text>
+                            </Comment.Content>
+                        </Comment>
+                    ))}
+                </Comment.Group>
+            </Segment>
+        </>
+    )
+})
+>>>>>>> a799b6884969ad43d348d021716b2690da8ad6aa
